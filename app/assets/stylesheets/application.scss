@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+#footer-spacer {
+  height: 55px;
+}
+
+.feed-item {
+  border: 1px solid black;
+  margin-bottom: 15px;
+  padding: 0 7.5px;
+}

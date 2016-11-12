@@ -1,3 +1,10 @@
-// Place all the styles related to the routes controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.route-sidebar {
+  height: 600px;
+  overflow: scroll;
+
+  .route-container {
+    border: 1px solid black;
+    margin-bottom: 15px;
+    padding: 0 7.5px;
+  }
+}
