@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Boarding Actions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Trip</th>
+      <th>Student</th>
+      <th>Onboard</th>
+      <th>Boarded at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @boarding_actions.each do |boarding_action| %>
+      <tr>
+        <td><%= boarding_action.trip_id %></td>
+        <td><%= boarding_action.student_id %></td>
+        <td><%= boarding_action.onboard %></td>
+        <td><%= boarding_action.boarded_at %></td>
+        <td><%= link_to 'Show', boarding_action %></td>
+        <td><%= link_to 'Edit', edit_boarding_action_path(boarding_action) %></td>
+        <td><%= link_to 'Destroy', boarding_action, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Boarding Action', new_boarding_action_path %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trip_id: 1
+  student_id: 1
+  onboard: false
+  boarded_at: 2016-11-12 13:14:59
+
+two:
+  trip_id: 1
+  student_id: 1
+  onboard: false
+  boarded_at: 2016-11-12 13:14:59

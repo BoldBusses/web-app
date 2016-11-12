@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @ridership.student_id %>
+</p>
+
+<p>
+  <strong>Route:</strong>
+  <%= @ridership.route_id %>
+</p>
+
+<p>
+  <strong>Pickup time:</strong>
+  <%= @ridership.pickup_time %>
+</p>
+
+<%= link_to 'Edit', edit_ridership_path(@ridership) %> |
+<%= link_to 'Back', riderships_path %>

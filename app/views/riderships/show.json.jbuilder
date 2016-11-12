@@ -1,0 +1,1 @@
+json.partial! "riderships/ridership", ridership: @ridership

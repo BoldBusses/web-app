@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Trip:</strong>
+  <%= @boarding_action.trip_id %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @boarding_action.student_id %>
+</p>
+
+<p>
+  <strong>Onboard:</strong>
+  <%= @boarding_action.onboard %>
+</p>
+
+<p>
+  <strong>Boarded at:</strong>
+  <%= @boarding_action.boarded_at %>
+</p>
+
+<%= link_to 'Edit', edit_boarding_action_path(@boarding_action) %> |
+<%= link_to 'Back', boarding_actions_path %>

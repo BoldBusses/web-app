@@ -1,0 +1,32 @@
+<%= form_for(ridership) do |f| %>
+  <% if ridership.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ridership.errors.count, "error") %> prohibited this ridership from being saved:</h2>
+
+      <ul>
+      <% ridership.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :student_id %>
+    <%= f.number_field :student_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :route_id %>
+    <%= f.number_field :route_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :pickup_time %>
+    <%= f.datetime_select :pickup_time %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

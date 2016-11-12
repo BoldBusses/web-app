@@ -1,0 +1,1 @@
+json.array! @riderships, partial: 'riderships/ridership', as: :ridership
