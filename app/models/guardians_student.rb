@@ -1,0 +1,2 @@
+class GuardiansStudent < ApplicationRecord
+end
