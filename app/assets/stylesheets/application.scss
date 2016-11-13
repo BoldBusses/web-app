@@ -38,8 +38,11 @@
   }
 }
 
-.brand {
-  height: 180px;
-  margin: 0 0 15px -25px;
+.bold-bus-logo {
+  margin: 0 0 15px -70px;
   max-width: 50%;
+
+  svg {
+    max-height: 180px;
+  }
 }

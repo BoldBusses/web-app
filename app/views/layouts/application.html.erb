@@ -14,7 +14,7 @@
 
   <body>
     <div class="container">
-      <%= link_to image_tag("logo", class: "brand"), root_url %>
+      <%= link_to (render "logo"), root_url, class: "bold-bus-logo" %>
 
       <% if guardian_signed_in? %>
         <p>
