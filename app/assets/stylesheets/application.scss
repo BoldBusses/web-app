@@ -19,7 +19,17 @@
 }
 
 .feed-item {
-  border: 1px solid black;
+  border: 1px solid #ccc;
   margin-bottom: 15px;
   padding: 0 7.5px;
+
+  &-success {
+    @extend .feed-item;
+    border: 1px solid #5cb85c;
+  }
+
+  &-danger {
+    @extend .feed-item;
+    border: 1px solid #d9534f;
+  }
 }

@@ -21,17 +21,45 @@
 <% if @route.trips.in_progress.count == 0 %>
   <div class="row">
     <div class="col-lg-12">
-      <%= link_to "Start trip", new_trip_path, class: "btn btn-primary" %>
+      <%= link_to "Start trip", route_trips_path(@route), method: :post, class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <hr>
+<% end %>
+
+<% if @active_trip.present? %>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Active trip</h2>
+      <div class="feed-item">
+        <div style="height:20px;"></div>
+        <p>
+          <strong>Status:</strong>
+          <%= @active_trip.status %>
+        </p>
+        <p>
+          <strong>Started:</strong>
+          <%= @active_trip.start_at.strftime("%B %e, %Y %l:%M %P") %>
+        </p>
+        <p>
+          <% if @active_trip.ended_at.present? %>
+            <strong>Ended:</strong>
+            <%= @active_trip.ended_at.strftime("%B %e, %Y %l:%M %P") %>
+          <% end %>
+        </p>
+        <p>
+          <%= link_to "View trip", @active_trip %>
+        </p>
+      </div>
     </div>
   </div>
 <% end %>
 
-<hr>
-
 <div class="row">
   <div class="col-md-12">
-    <h2>Trips</h2>
-    <% @route.trips.ordered_by_start_at.each do |trip| %>
+    <h2>Finished trips</h2>
+    <% @route.trips.finished.ordered_by_start_at.each do |trip| %>
       <div class="feed-item">
         <div style="height:20px;"></div>
         <p>

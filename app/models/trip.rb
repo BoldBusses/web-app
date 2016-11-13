@@ -1,11 +1,20 @@
 class Trip < ApplicationRecord
+  has_many :boarding_actions
   belongs_to :route
+
+  def finished?
+    ended_at
+  end
+
+  def in_progress?
+    ended_at.blank?
+  end
 
   def status
     if ended_at.present?
       "Finished"
     else
-      "In progress"
+      "En route"
     end
   end
 

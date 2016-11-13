@@ -10,6 +10,7 @@ class RoutesController < ApplicationController
   # GET /routes/1
   # GET /routes/1.json
   def show
+    @active_trip = @route.trips.in_progress.first
   end
 
   # GET /routes/new

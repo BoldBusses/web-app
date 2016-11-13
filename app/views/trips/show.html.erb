@@ -1,10 +1,24 @@
+<%= flash[:alert] %>
 <div class="row">
   <div class="col-lg-12">
     <div class="page-header">
       <h1>
-        <%= @trip.route.name %>
+        Trip for "<%= @trip.route.name %>"
         <small><%= @trip.status %></small>
       </h1>
+      <p>
+      <%= link_to "Back to route", route_path(@trip.route) %>
+      </p>
+      <p>
+        <strong>Started:</strong>
+        <%= @trip.start_at.strftime("%B %e, %Y %l:%M %P") %>
+      </p>
+      <% if @trip.ended_at.present? %>
+      <p>
+        <strong>Ended:</strong>
+        <%= @trip.ended_at.strftime("%B %e, %Y %l:%M %P") %>
+      </p>
+      <% end %>
     </div>
   </div>
 </div>
@@ -17,9 +31,11 @@
     <p>
       <strong>Phone number:</strong> <%= @trip.route.driver.phone_number %>
     </p>
-    <p>
-      <%= link_to "Complete trip", edit_trip_path(@trip), class: "btn btn-primary", data: { confirm: "Ready to complete trip?" } %>
-    </p>
+    <% if @trip.ended_at.blank? %>
+      <p>
+        <%= link_to "Complete trip", complete_trip_path(@trip), method: :patch, class: "btn btn-primary", data: { confirm: "Ready to complete trip?" } %>
+      </p>
+    <% end %>
   </div>
 </div>
 
@@ -27,7 +43,8 @@
 
 <div class="row">
   <div class="col-md-12 sidebar">
-    <% @trip.route.riderships.ordered_by_pickup_time.each do |ridership| %>
+    <h1>En route</h1>
+    <% @trip.route.riderships.ordered_by_pickup_time.with_status_for_trip("pending", @trip).each do |ridership| %>
       <div class="feed-item">
         <h3><%= ridership.student.name %></h3>
         <p>
@@ -38,10 +55,71 @@
           <%= ridership.student.street_address %><br/>
           <%= ridership.student.city %>, <%= ridership.student.state %> <%= ridership.student.zipcode %>
         </p>
-        <div class="btn-group">
-          <%= link_to "Onboard", "#", class: "btn btn-success" %>
-          <%= link_to "Absent", "#", class: "btn btn-danger" %>
-        </div>
+        <p>
+          <strong>Status:</strong> <%= ridership.status_for_trip(@trip).titlecase %>
+        </p>
+        <% if @trip.ended_at.blank? %>
+          <div class="btn-group">
+            <%= link_to "Onboard", trip_boarding_actions_path(@trip, boarding_action: { student_id: ridership.student.id, onboard: true }), method: :post, class: "btn btn-success" %>
+            <%= link_to "Absent", trip_boarding_actions_path(@trip, boarding_action: { student_id: ridership.student.id, onboard: false}), method: :post, class: "btn btn-danger" %>
+          </div>
+        <% end %>
+        <div style="height:10px;"></div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 sidebar">
+    <h1>On board</h1>
+    <% @trip.route.riderships.ordered_by_pickup_time.with_status_for_trip("onboard", @trip).each do |ridership| %>
+      <div class="feed-item-success">
+        <h3><%= ridership.student.name %></h3>
+        <p>
+          <strong>Pickup time:</strong> <%= ridership.pickup_time.strftime("%l:%M %P") %>
+        </p>
+        <p>
+          <strong>Address:</strong><br/>
+          <%= ridership.student.street_address %><br/>
+          <%= ridership.student.city %>, <%= ridership.student.state %> <%= ridership.student.zipcode %>
+        </p>
+        <p>
+          <strong>Status:</strong> <%= ridership.status_for_trip(@trip).titlecase %>
+        </p>
+        <% if @trip.ended_at.blank? %>
+          <p>
+            <%= link_to "Mark absent", boarding_action_path(@trip.boarding_actions.where(student: ridership.student).first, boarding_action: { onboard: false}), method: :patch, class: "btn btn-default" %>
+          </p>
+        <% end %>
+        <div style="height:10px;"></div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 sidebar">
+    <h1>Absent</h1>
+    <% @trip.route.riderships.ordered_by_pickup_time.with_status_for_trip("absent", @trip).each do |ridership| %>
+      <div class="feed-item-danger">
+        <h3><%= ridership.student.name %></h3>
+        <p>
+          <strong>Pickup time:</strong> <%= ridership.pickup_time.strftime("%l:%M %P") %>
+        </p>
+        <p>
+          <strong>Address:</strong><br/>
+          <%= ridership.student.street_address %><br/>
+          <%= ridership.student.city %>, <%= ridership.student.state %> <%= ridership.student.zipcode %>
+        </p>
+        <p>
+          <strong>Status:</strong> <%= ridership.status_for_trip(@trip).titlecase %>
+        </p>
+        <% if @trip.ended_at.blank? %>
+          <p>
+            <%= link_to "Mark onboard", boarding_action_path(@trip.boarding_actions.where(student: ridership.student).first, boarding_action: { onboard: true}), method: :patch, class: "btn btn-default" %>
+          </p>
+        <% end %>
         <div style="height:10px;"></div>
       </div>
     <% end %>
