@@ -1,3 +1,5 @@
+guardian_count = 0
+
 (1..5).each do |i|
   SchoolAdmin.create(
     name: Faker::Name.name,
@@ -14,20 +16,27 @@ end
     password: "password",
   )
   students = 10.times.map do
-    Student.create(
+    student = Student.create(
       name: Faker::Name.name,
       street_address: Faker::Address.street_address,
       city: Faker::Address.city,
       state: Faker::Address.state,
       zipcode: Faker::Address.zip,
+      guardians: (1..2).map do
+        guardian_count = guardian_count + 1
+        Guardian.create(
+          name: Faker::Name.name,
+          email: "guardian-#{guardian_count}@example.com",
+          password: "password",
+        )
+      end,
     )
   end
 
-  bus_name = "Bus #{Faker::Number.hexadecimal(3)}"
 
   route = Route.create(
     driver: driver,
-    name: "#{bus_name}",
+    name: "Bus #{i}",
   )
 
   students.each do |student|

@@ -29,8 +29,10 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Devise for authentication
 gem 'devise'
+# Use Pundit for authorizations
+gem 'pundit'
 
-# User faker for seed data
+# Use faker for seed data
 gem 'faker'
 
 # Use Capistrano for deployment

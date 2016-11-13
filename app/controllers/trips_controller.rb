@@ -1,5 +1,11 @@
 class TripsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_trip, only: [:show, :edit, :update, :destroy, :complete]
+
+  def index
+    @route = Route.find(params[:route_id])
+    @trips = @route.trips
+  end
 
   def show
   end

@@ -7,7 +7,8 @@
         <small><%= @trip.status %></small>
       </h1>
       <p>
-      <%= link_to "Back to route", route_path(@trip.route) %>
+        <%= link_to "Back to trips", route_trips_path(@trip.route) %><br/>
+        <%= link_to "Back to route", route_path(@trip.route) %>
       </p>
       <p>
         <strong>Started:</strong>
@@ -22,6 +23,7 @@
     </div>
   </div>
 </div>
+
 <div class="row">
   <div class="col-lg-12">
     <h2>Driver</h2>
@@ -41,6 +43,7 @@
 
 <hr>
 
+<a name="en-route"></a>
 <div class="row">
   <div class="col-md-12 sidebar">
     <h1>En route</h1>

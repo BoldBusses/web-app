@@ -1,6 +1,41 @@
-<h1>Editing Ridership</h1>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h1>Update pickup time for <%= @ridership.student.name %></h1>
+    </div>
+  </div>
+</div>
 
-<%= render 'form', ridership: @ridership %>
-
-<%= link_to 'Show', @ridership %> |
-<%= link_to 'Back', riderships_path %>
+<%= form_for(@ridership) do |f| %>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= label_tag :pickup_hour %>
+        <% if @ridership.pickup_time.hour > 12 %>
+          <%= select_tag :pickup_hour, options_from_collection_for_select(1..12, :itself, :itself,@ridership.pickup_time.hour - 12), include_blank: false, class: "form-control" %>
+        <% else %>
+          <%= select_tag :pickup_hour, options_from_collection_for_select(1..12, :itself, :itself,@ridership.pickup_time.hour), include_blank: false, class: "form-control" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= label_tag :pickup_minute %>
+        <%= select_tag :pickup_minute, options_from_collection_for_select(0..59, :itself, :itself, @ridership.pickup_time.min), include_blank: false, class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= label_tag :pickup_meridian %>
+        <% if @ridership.pickup_time.hour > 12 %>
+          <%= select_tag :pickup_meridian, options_from_collection_for_select(["AM", "PM"], :itself, :itself, "PM"), include_blank: false, class: "form-control" %>
+        <% else %>
+          <%= select_tag :pickup_meridian, options_from_collection_for_select(["AM", "PM"], :itself, :itself, "AM"), include_blank: false, class: "form-control" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <%= f.submit "Update pickup time", class: "btn btn-success" %>
+    </div>
+  </div>
+<% end %>

@@ -1,6 +1,8 @@
 class Student < ApplicationRecord
   has_many :boarding_actions
   has_many :trips, through: :boarding_actions
+  has_many :guardians_students
+  has_many :guardians, through: :guardians_students
   has_many :riderships
 
   validates :name, presence: true

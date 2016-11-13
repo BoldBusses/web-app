@@ -14,6 +14,10 @@
  *= require_self
  */
 
+* {
+  font-family: "Roboto Slab"
+}
+
 #footer-spacer {
   height: 55px;
 }
@@ -32,4 +36,10 @@
     @extend .feed-item;
     border: 1px solid #d9534f;
   }
+}
+
+.brand {
+  height: 180px;
+  margin: 0 0 15px -25px;
+  max-width: 50%;
 }

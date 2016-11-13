@@ -31,9 +31,11 @@
   <hr>
 <% end %>
 
-<% if @active_trip.present? %>
-  <div class="row">
-    <div class="col-md-12">
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Trips</h2>
+    <% if @active_trip.present? %>
       <h2>Active trip</h2>
       <div class="feed-item-success">
         <div style="height:20px;"></div>
@@ -55,35 +57,38 @@
           <%= link_to "View trip", @active_trip %>
         </p>
       </div>
-    </div>
-  </div>
-<% end %>
-
-<div class="row">
-  <div class="col-md-12">
-    <h2>Finished trips</h2>
-    <% @route.trips.finished.ordered_by_start_at.each do |trip| %>
-      <div class="feed-item">
-        <div style="height:20px;"></div>
-        <p>
-          <strong>Status:</strong>
-          <%= trip.status %>
-        </p>
-        <p>
-          <strong>Started:</strong>
-          <%= trip.start_at.strftime("%B %e, %Y %l:%M %P") %>
-        </p>
-        <p>
-          <% if trip.ended_at.present? %>
-            <strong>Ended:</strong>
-            <%= trip.ended_at.strftime("%B %e, %Y %l:%M %P") %>
-          <% end %>
-        </p>
-        <p>
-          <%= link_to "View trip", trip %>
-        </p>
-      </div>
+    <% else %>
+      <p>No active trips</p>
     <% end %>
+    <p>
+      <%= link_to "View all #{pluralize(@route.trips.count, "trip")}", route_trips_path(@route) %>
+    </p>
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <h2>Students</h2>
+    <% @route.riderships.ordered_by_pickup_time.each do |ridership| %>
+      <div class="feed-item">
+        <h3><%= ridership.student.name %></h3>
+        <p>
+          <strong>Pickup time:</strong> <%= ridership.pickup_time.strftime("%l:%M %P") %>
+        </p>
+        <p>
+          <strong>Address:</strong><br/>
+          <%= ridership.student.street_address %><br/>
+          <%= ridership.student.city %>, <%= ridership.student.state %> <%= ridership.student.zipcode %>
+        </p>
+        <p>
+          <%= link_to "Change pickup time", edit_ridership_path(ridership), class: "btn btn-default" %>
+          <%= link_to "Remove from route", ridership, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+        </p>
+        <div style="height:10px;"></div>
+      </div>
+    <% end %>
+    <p>
+      <%= link_to "Add student", new_route_ridership_path(@route), class: "btn btn-success" %>
+    </p>
+  </div>
+</div>

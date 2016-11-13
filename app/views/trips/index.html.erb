@@ -1,31 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="page-header">
+      <h1>Trips for <%= @route.name %></h1>
+      <%= link_to "Back to route", route_path(@route) %>
+    </div>
+  </div>
+</div>
 
-<h1>Trips</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Route</th>
-      <th>Start at</th>
-      <th>Ended at</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @trips.each do |trip| %>
-      <tr>
-        <td><%= trip.route_id %></td>
-        <td><%= trip.start_at %></td>
-        <td><%= trip.ended_at %></td>
-        <td><%= link_to 'Show', trip %></td>
-        <td><%= link_to 'Edit', edit_trip_path(trip) %></td>
-        <td><%= link_to 'Destroy', trip, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="row">
+  <div class="col-md-12">
+    <% @trips.ordered_by_start_at.each do |trip| %>
+      <div class="<%= trip.in_progress? ? "feed-item-success" : "feed-item" %>">
+        <div style="height:20px;"></div>
+        <p>
+          <strong>Status:</strong>
+          <%= trip.status %>
+        </p>
+        <p>
+          <strong>Started:</strong>
+          <%= trip.start_at.strftime("%B %e, %Y %l:%M %P") %>
+        </p>
+        <p>
+          <% if trip.ended_at.present? %>
+            <strong>Ended:</strong>
+            <%= trip.ended_at.strftime("%B %e, %Y %l:%M %P") %>
+          <% end %>
+        </p>
+        <p>
+          <%= link_to "View trip", trip %>
+        </p>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Trip', new_trip_path %>
+  </div>
+</div>
