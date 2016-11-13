@@ -1,9 +1,22 @@
-<p>
-  <%= link_to "Sign in as Guardian", new_guardian_session_path %>
-</p>
-<p>
-<%= link_to "Sign in as Driver", new_driver_session_path %>
-</p>
-<p>
-<%= link_to "Sign in as School Admin", new_school_admin_session_path %>
-</p>
+<div class="row">
+  <div class="col-lg-12">
+    <h1>Sign in</h1>
+    <p>
+      <%= link_to "Sign in as Guardian", new_guardian_session_path %>
+    </p>
+    <p>
+      <%= link_to "Sign in as Driver", new_driver_session_path %>
+    </p>
+    <p>
+      <%= link_to "Sign in as School Admin", new_school_admin_session_path %>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <h1>Pitch</h1>
+    <p>
+      <%= link_to "Download Pitch Slides", "/handout.pdf", class: "btn btn-primary", target: "_blank" %>
+    </p>
+  </div>
+</div>
