@@ -9,7 +9,7 @@
 <div class="row">
   <div class="col-lg-12">
     <% @routes.each do |route| %>
-      <div class="feed-item">
+      <div class="<%= route.trips.in_progress.count > 0 ? "feed-item-success" : "feed-item"%>" >
         <h3><%= route.name %></h3>
         <p>
           <strong>Driver:</strong> <%= route.driver.name %>
@@ -17,6 +17,9 @@
         <p>
           <strong>Students:</strong> <%= pluralize(route.students.count, "student") %>
         </p>
+        <% if route.trips.in_progress.count > 0 %>
+          <p><%= link_to "Active trip", route.trips.in_progress.first %></p>
+        <% end %>
         <p>
           <%= link_to "View route", route_path(route) %>
         </p>

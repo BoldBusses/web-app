@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-lg-12">
+    <% if flash[:alert] %>
+      <div class="alert alert-danger" role="alert">
+        <p><%= flash[:alert] %>
+      </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="alert alert-info" role="alert">
+        <p><%= flash[:notice] %>
+      </div>
+    <% end %>
+  </div>
+</div>
